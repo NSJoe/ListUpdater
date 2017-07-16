@@ -1,4 +1,4 @@
-#ListUpdater
+# ListUpdater
 免去调用UITableView 和 UICollectionView 批量删除、插入、移动等动画接口需要进行Diff计算的麻烦。通过ListUpdater直接更新就可以实现动画刷新，内部做好了Diff计算。
 >
 >计算操作子线程执行
@@ -14,8 +14,11 @@
 ![gif](ListUpdater_Small.gif)
 
 ## Installation
+>
+>CocoaPods: pod 'ListUpdater'
+>
 
-## Get Start
+## Usage
 ### 1.实现数据源
 数据源实现Diff判断协议，Diffable对应Row/Item对应的数据源，SectionDiffable对应一个section对应的数据源,确保**`diffIdentifier`**能够区分不同的数据源
 
