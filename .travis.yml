@@ -1,0 +1,4 @@
+language: objective-c
+osx_image: xcode8
+xcode_project: ListUpdater.xcodeproj 
+xcode_scheme: ListUpdater
