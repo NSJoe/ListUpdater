@@ -8,56 +8,56 @@
 
 import Foundation
 
-protocol SectionDiffable : Diffable {
+public protocol SectionDiffable : Diffable {
     var sectionItems : Array<Diffable> { get }
     
 }
 
-struct RowsMovement : Hashable {
-    var from = IndexPath()
-    var to = IndexPath()
+public struct RowsMovement : Hashable {
+    public var from = IndexPath()
+    public var to = IndexPath()
     
-    var hashValue: Int {
+    public var hashValue: Int {
         get {
             return "\(from.section)-\(from.row)-\(from.item)-\(to.row)-\(to.item)".hashValue
         }
     }
     
-    static func ==(lhs: RowsMovement, rhs: RowsMovement) -> Bool {
+    public static func ==(lhs: RowsMovement, rhs: RowsMovement) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
 }
 
-struct DiffSectionResult {
-    var deletes = [IndexPath]()
-    var inserts = [IndexPath]()
-    var reloads = [IndexPath]()
-    var moveRows = Set<RowsMovement>()
+public struct DiffSectionResult {
+    public var deletes = [IndexPath]()
+    public var inserts = [IndexPath]()
+    public var reloads = [IndexPath]()
+    public var moveRows = Set<RowsMovement>()
     
-    var changedCount : Int {
+    public var changedCount : Int {
         get{
             return deletes.count + inserts.count + moveRows.count
         }
     }
     
-    mutating func deletes(at indexPath:IndexPath) -> Void {
+    public mutating func deletes(at indexPath:IndexPath) -> Void {
         deletes.append(indexPath)
     }
     
-    mutating func insert(at indexPath:IndexPath) -> Void {
+    public mutating func insert(at indexPath:IndexPath) -> Void {
         inserts.append(indexPath)
     }
     
-    mutating func reloads(at indexPath:IndexPath) -> Void {
+    public mutating func reloads(at indexPath:IndexPath) -> Void {
         reloads.append(indexPath)
     }
     
-    mutating func moveRow(at move:RowsMovement) -> Void {
+    public mutating func moveRow(at move:RowsMovement) -> Void {
         moveRows.insert(move)
     }
 }
 
-func sectionedDiff(from:Array<SectionDiffable>, to:Array<SectionDiffable>) -> (DiffIndexResult, DiffSectionResult) {
+public func sectionedDiff(from:Array<SectionDiffable>, to:Array<SectionDiffable>) -> (DiffIndexResult, DiffSectionResult) {
     
     //计算一级数组的变化
     let indexedResult = indexedDiff(from: from, to: to)

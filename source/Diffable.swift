@@ -8,61 +8,61 @@
 
 import Foundation
 
-protocol Diffable {
+public protocol Diffable {
     var diffIdentifier : String {get}
 }
 
-extension Diffable {
-    func diffChanged(to:Diffable) -> Bool {
+public extension Diffable {
+    public func diffChanged(to:Diffable) -> Bool {
         return self.diffIdentifier != to.diffIdentifier
     }
 }
 
-struct IndexMovement : Hashable {
-    var from = 0
-    var to = 0
+public struct IndexMovement : Hashable {
+    public var from = 0
+    public var to = 0
     
-    var hashValue: Int {
+    public var hashValue: Int {
         get {
             return "\(from)-\(to)".hashValue
         }
     }
     
-    static func ==(lhs: IndexMovement, rhs: IndexMovement) -> Bool {
+    public static func ==(lhs: IndexMovement, rhs: IndexMovement) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
 }
 
-struct DiffIndexResult {
-    var deletes = IndexSet()
-    var inserts = IndexSet()
-    var reloads = IndexSet()
-    var moveIndexes = Set<IndexMovement>()
+public struct DiffIndexResult {
+    public var deletes = IndexSet()
+    public var inserts = IndexSet()
+    public var reloads = IndexSet()
+    public var moveIndexes = Set<IndexMovement>()
     
-    var changedCount : Int {
+    public var changedCount : Int {
         get{
             return deletes.count + inserts.count + moveIndexes.count
         }
     }
     
-    mutating func deletes(at index:Int) -> Void {
+    public mutating func deletes(at index:Int) -> Void {
         deletes.insert(index)
     }
     
-    mutating func insert(at index:Int) -> Void {
+    public mutating func insert(at index:Int) -> Void {
         inserts.insert(index)
     }
     
-    mutating func reloads(at index:Int) -> Void {
+    public mutating func reloads(at index:Int) -> Void {
         reloads.insert(index)
     }
     
-    mutating func moveIndex(at move:IndexMovement) -> Void {
+    public mutating func moveIndex(at move:IndexMovement) -> Void {
         moveIndexes.insert(move)
     }
 }
 
-func indexedDiff(from:Array<Diffable>, to:Array<Diffable>) -> DiffIndexResult {
+public func indexedDiff(from:Array<Diffable>, to:Array<Diffable>) -> DiffIndexResult {
     var diffResult = DiffIndexResult()
     var oldIds = [String](), newIds = [String](), oldIndexMap = [String:Int](), newIndexMap = [String:Int](), expectIndexes = Array<String>()
     

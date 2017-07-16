@@ -10,12 +10,12 @@ import UIKit
 
 let defaultThrottle : Float = 0.1
 
-class ListUpdater {
+open class ListUpdater {
     
     public var dataSource = [SectionDiffable]()
     private let throttle = ThrottleTask(throttle: defaultThrottle)
     
-    func update(dataSource:[SectionDiffable], animation:@escaping ((DiffIndexResult, DiffSectionResult)) -> Void) -> Void {
+    public func update(dataSource:[SectionDiffable], animation:@escaping ((DiffIndexResult, DiffSectionResult)) -> Void) -> Void {
         throttle.add {
             let diff = sectionedDiff(from: self.dataSource, to: dataSource)
             self.dataSource = dataSource
@@ -28,15 +28,15 @@ class ListUpdater {
     
 }
 
-class TableViewUpdater: ListUpdater {
+open class TableViewUpdater: ListUpdater {
     
-    var tableView:UITableView
+    public var tableView:UITableView
     
-    init(tableView:UITableView) {
+    public init(tableView:UITableView) {
         self.tableView = tableView
     }
     
-    func animateReload(newData:[SectionDiffable]) -> Void {
+    public func animateReload(newData:[SectionDiffable]) -> Void {
         if self.tableView.window == nil {
             self.immedateReload(newData: newData)
             return
@@ -59,22 +59,22 @@ class TableViewUpdater: ListUpdater {
         }
     }
     
-    func immedateReload(newData:[SectionDiffable]) -> Void {
+    public func immedateReload(newData:[SectionDiffable]) -> Void {
         self.dataSource = newData
         self.tableView.reloadData()
     }
     
 }
 
-class CollectionViewUpdater: ListUpdater {
+open class CollectionViewUpdater: ListUpdater {
     
-    var collectionView:UICollectionView
+    public var collectionView:UICollectionView
     
-    init(collectionView:UICollectionView) {
+    public init(collectionView:UICollectionView) {
         self.collectionView = collectionView
     }
     
-    func animateReload(newData:[SectionDiffable]) -> Void {
+    public func animateReload(newData:[SectionDiffable]) -> Void {
         if self.collectionView.window == nil {
             self.immedateReload(newData: newData)
             return
@@ -97,7 +97,7 @@ class CollectionViewUpdater: ListUpdater {
         }
     }
     
-    func immedateReload(newData:[SectionDiffable]) -> Void {
+    public func immedateReload(newData:[SectionDiffable]) -> Void {
         self.dataSource = newData
         self.collectionView.reloadData()
     }

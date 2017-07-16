@@ -8,19 +8,19 @@
 
 import Foundation
 
-class ThrottleTask {
+open class ThrottleTask {
     
-    typealias Task = (Void) -> Void
+    public typealias Task = (Void) -> Void
     
     private var throttle:Float = 0.0
     private var tasks = [Task]()
     private let queue = DispatchQueue(label: "throttle.task.serial.queue", attributes: .init(rawValue:0))
     
-    init(throttle:Float) {
+    public init(throttle:Float) {
         self.throttle = throttle
     }
     
-    func add(task:@escaping Task) -> Void {
+    public func add(task:@escaping Task) -> Void {
         objc_sync_enter(self)
         self.tasks.append(task)
         if self.tasks.count == 1 {
