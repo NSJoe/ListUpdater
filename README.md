@@ -22,7 +22,7 @@
 ### 1.实现数据源
 数据源实现Diff判断协议，Diffable对应Row/Item对应的数据源，SectionDiffable对应一个section对应的数据源,确保**`diffIdentifier`**能够区分不同的数据源
 
-```
+```swift
 struct ViewModel : Diffable {
     var diffIdentifier: String = ""
 }
@@ -36,7 +36,7 @@ struct Group : SectionDiffable {
 ### 2.使用数据源
 TableView和CollectionView的delegate和dataSource中使用ListUpdater的数据源来获取数据。
 
-```
+```swift
 override func numberOfSections(in tableView: UITableView) -> Int {
         return self.tableUpdater.dataSource.count
     }
@@ -61,8 +61,11 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 ### 3.更新数据
 在主线程直接调用updater的更新方法
 
-```
+```swift
 self.tableUpdater.animateReload(newData: [Group]())
 ```
+
+## About Reload
+由于在执行插入删除动画的时候同时执行reload动画会导致动画不是很好看，所以这个库里把reload的动画删除，如果需要在数据位置没有发生改变但需要刷新，建议采用数据绑定(rxswift/ReactiveSwift/KVO等等)来刷新而不是reloadRow或reloadData。
 
 详细调用参见demo。
