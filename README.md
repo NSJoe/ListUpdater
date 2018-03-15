@@ -15,7 +15,11 @@
 
 ## Installation
 >
->CocoaPods: pod 'ListUpdater'
+>PS: `swift版本还有问题，OC已经修复`
+>
+>Swift: pod 'ListUpdater'
+>
+>Objective-C: pod 'ListUpdater-OC'
 >
 
 ## Usage
@@ -65,7 +69,5 @@ override func numberOfSections(in tableView: UITableView) -> Int {
 self.tableUpdater.animateReload(newData: [Group]())
 ```
 
-## About Reload
-由于在执行插入删除动画的时候同时执行reload动画会导致动画不是很好看，所以这个库里把reload的动画删除，如果需要在数据位置没有发生改变但需要刷新，建议采用数据绑定(rxswift/ReactiveSwift/KVO等等)来刷新而不是reloadRow或reloadData。
 
 详细调用参见demo。
