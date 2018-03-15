@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author             = { "NSJoe" => "joeadeline@icloud.com" }
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/NSJoe/ListUpdater.git", :tag => s.version }
-  s.source_files  = "source/*.{swift}"
+  s.source_files  = "source-OC/*.{h,m}"
   s.framework  = "UIKit"
 
   s.description  = <<-DESC 
